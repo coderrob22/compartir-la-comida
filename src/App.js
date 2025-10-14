@@ -71,11 +71,13 @@ export default function App(){
         </Button>
       </div>
       {/* The component below is being conditionally rendered based on whether a friend is selected. If they are not selected then the form is short circuited. */}
-      {selectedFriend && <FormSplitBill 
+      {selectedFriend && (
+      <FormSplitBill 
         selectedFriend={selectedFriend} 
         onSplitBill={handleSplitBill}
+        key={selectedFriend.id}
         />
-      }
+      )}
     </div>)
 }
 
