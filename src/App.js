@@ -90,6 +90,17 @@ function FormSplitBill() {
   return (
     <form className="form-split-bill">
       <h2>Solit a bill with friend</h2>
+      
+      <label>Bill value</label>
+      <input type="text" />
+
+      <label>Your expense</label>
+      <input type="text" />
+
+      <label>Friend's expense</label>
+      <input type="text" />
+
+      <Button>Split bill</Button>
     </form>
   )
 }
