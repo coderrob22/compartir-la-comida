@@ -85,8 +85,23 @@ function Button ( {children, onClick} ){
 function FormAddFriend(){
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
+
+  function handleSubmission(e) {
+    e.preventDefault();
+
+    if (!name || !image) return;
+
+    const id = crypto.randomUUID();
+    const newFriend = {
+      id,
+      name,
+      image,
+      balance: 0,
+    }
+  }
+
   return (
-    <form className="form-add-friend">
+    <form className="form-add-friend" onSubmit={handleSubmission}>
       <label>Friend name</label>
       <input 
         type="text" 
