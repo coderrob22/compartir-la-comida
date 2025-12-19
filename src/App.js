@@ -55,7 +55,7 @@ export default function App(){
         </Button>
       </div>
       {/* The component below is being conditionally rendered based on whether a friend is selected. If they are not selected then the form is short circuited. */}
-      {selectedFriend && <FormSplitBill />}
+      {selectedFriend && <FormSplitBill selectedFriend={selectedFriend} />}
     </div>)
 }
 
@@ -143,10 +143,10 @@ function FormAddFriend({onAddFriend}){
   )
 }
 
-function FormSplitBill() {
+function FormSplitBill({ selectedFriend }) {
   return (
     <form className="form-split-bill">
-      <h2>Solit a bill with friend</h2>
+      <h2>Solit a bill with {selectedFriend.name}</h2>
       
       <label>Bill value</label>
       <input type="text" />
@@ -154,13 +154,13 @@ function FormSplitBill() {
       <label>Your expense</label>
       <input type="text" />
 
-      <label>Friend's expense</label>
+      <label>{selectedFriend.name} expense</label>
       <input type="text" disabled />
 
       <label>Who is paying the bill</label>
       <select>
         <option value="user">You</option>
-        <option value="friend">Friend</option>
+        <option value="friend">{selectedFriend.name}</option>
       </select>
 
       <Button>Split bill</Button>
