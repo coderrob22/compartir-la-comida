@@ -50,6 +50,7 @@ export default function App(){
           ? {...friend, balance: friend.balance + value}
           : friend
         ));
+        selectedFriend(null);
   }
 
   return (
