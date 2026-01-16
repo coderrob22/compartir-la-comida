@@ -22,9 +22,14 @@ const initialFriends = [
 ];
 
 export default function App(){
+
+  // ************************** STATES *****************************
   const [friends, setFriends] = useState(initialFriends);
   const [showAddFriend, setShowAddFriend] = useState(false);
+  //Below is the lifted state for the Friend component, so that when a friend is clicked, the form to the right will receive the info.
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
+  // ***************************** HANDLER FUNCTIONS **********************
   function handleShowAddFriend(){
   setShowAddFriend((x) => !x);
 }
@@ -32,32 +37,40 @@ export default function App(){
     setFriends((friends) => [...friends, friend])
     setShowAddFriend(false);
   }
+  function handleSelectionOfFriend(){
+    setSelectedFriend(friend);
+  }
 
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList friends={friends}/>
+        <FriendsList friends={friends} onSelectionOfFriend={handleSelectionOfFriend}/>
+
         {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} /> }
+
+
+
         <Button onClick={handleShowAddFriend}>
           {showAddFriend ? "Close" : "Add friend"}
         </Button>
       </div>
-      <FormSplitBill />
+      {/* The component below is being conditionally rendered based on whether a friend is selected. If they are not selected then the form is short circuited. */}
+      {selectedFriend && <FormSplitBill />}
     </div>)
 }
 
-function FriendsList({friends}){
+function FriendsList({friends, onSelectionOfFriend}){
   
   return (
     <ul>
       {friends.map((friend)=> (
-        <Friend friend={friend} key={friend.id} />
+        <Friend friend={friend} key={friend.id} onSelectionOfFriend={onSelectionOfFriend} />
       ))}
     </ul>
     )
 }
 
-function Friend ({friend}) {
+function Friend ({ friend, onSelectionOfFriend }) {
   return (
     <li>
       <img src={friend.image} alt={friend.name}/>
@@ -78,7 +91,7 @@ function Friend ({friend}) {
           You and {friend.name} are even. 
         </p>
       )}
-      <Button>Select</Button>
+      <Button onClick={() => onSelectionOfFriend(friend)}>Select</Button>
     </li>
     );
 }
